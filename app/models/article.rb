@@ -9,7 +9,8 @@
 #  updated_at :datetime         not null
 #
 class Article < ApplicationRecord
-  validates :title, presence: true, length: { minimum: 2, maximum: 100 }
+  validates :title, presence: true, length: { minimum: 2, maximum: 100 },
+                    format: { with: /\A(?!\@)/ }
   validates :content, presence: true, length: { minimum: 10}, uniqueness: true
 
   def display_created_at

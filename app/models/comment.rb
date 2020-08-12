@@ -14,4 +14,5 @@
 #
 class Comment < ApplicationRecord
   belongs_to :article  #articleに紐づける
+  validates :content, presence: true
 end

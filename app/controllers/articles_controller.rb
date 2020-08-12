@@ -34,6 +34,12 @@ class ArticlesController < ApplicationController
         render :edit
       end
     end
+    
+    def destroy
+      article = Article.find(params[:id])
+      article.destroy!  #「!」例外発生時に処理を止める
+      redirect_to root_path, notice: '削除に成功しました'
+    end
 
     private
     

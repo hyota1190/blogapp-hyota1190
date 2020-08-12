@@ -20,6 +20,8 @@ class Article < ApplicationRecord
 
   validate :validate_title_and_content_length
   #validate 独自ルール
+  
+  belongs_to :user  #userに紐づける
 
   def display_created_at
     I18n.l(self.created_at, format: :default)

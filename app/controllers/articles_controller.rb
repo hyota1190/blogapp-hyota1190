@@ -10,11 +10,11 @@ class ArticlesController < ApplicationController
     end
 
     def new
-      @article = Article.new
+      @article = current_user.articles.build  #Article.newとほぼ同義。ユーザと紐づけた為、表記が変わる
     end
 
     def create
-      @article = Article.new(article_params)
+      @article = current_user.articles.build(article_params)  #Article.newとほぼ同義
       if @article.save
         redirect_to article_path(@article), notice: '保存しました' #redirectのときのflash書き方
       else

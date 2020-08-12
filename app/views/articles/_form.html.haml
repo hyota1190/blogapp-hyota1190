@@ -1,0 +1,16 @@
+.container
+  %ul
+    - article.errors.full_messages.each do |message|
+      %li= message
+  = form_with(model: article, local: true) do |f|
+    / new :url: articles_path, method:'post'は省略できる
+    / edit :url: articles_path(@article), method:'put'は省略できる
+    %div
+      = f.label :title, 'タイトル'
+    %div
+      = f.text_field :title, class: 'text'
+    %div
+      = f.label :content, '内容'
+    %div
+      = f.text_area :content
+    = f.submit '保存', class: 'btn-primary'

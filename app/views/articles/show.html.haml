@@ -5,7 +5,7 @@
     %div
       %p cohki0305
       %p= @article.display_created_at
-    -if user_signed_in? && current_user.articles.exists?(id: @article.id)  #ログインしているか、かつ自分の投稿かを条件にする構文
+    -if user_signed_in? && current_user.has_written?(@article)  #ログインしているか、かつ自分の投稿かを条件にする構文
       .article_detail_actions
         .dropdown
           = image_tag 'actions.svg', class: 'dropbtn'

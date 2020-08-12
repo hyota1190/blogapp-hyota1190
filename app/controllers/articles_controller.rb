@@ -1,17 +1,17 @@
 class ArticlesController < ApplicationController
     before_action :set_article, only: [:show, :edit, :update]
-  
+
     def index   #一覧表示に使うメソッド
       @articles = Article.all
     end
 
     def show
     end
-    
+
     def new
-      @article = Article.new 
+      @article = Article.new
     end
-    
+
     def create
       @article = Article.new(article_params)
       if @article.save
@@ -19,12 +19,12 @@ class ArticlesController < ApplicationController
       else
         flash.now[:error] = '保存できませんでした' #renderのときのflash書き方
         render :new
-      end      
+      end
     end
-    
+
     def edit
     end
-    
+
     def update
       if @article.update(article_params)
         redirect_to article_path(@article), notice: '更新できました'
@@ -33,7 +33,7 @@ class ArticlesController < ApplicationController
         render :edit
       end
     end
-    
+
     def destroy
       article = Article.find(params[:id])
       article.destroy!  #「!」例外発生時に処理を止める
@@ -41,12 +41,12 @@ class ArticlesController < ApplicationController
     end
 
     private
-    
+
     def article_params  #privateにする
       params.require(:article).permit(:title, :content)
       # params{article: { title: "aaa", content:"bbb"}}
     end
-    
+
     def set_article
       @article = Article.find(params[:id])
     end

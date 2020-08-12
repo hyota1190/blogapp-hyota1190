@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    before_action :set_article, only: [:show, :edit, :update]
+    before_action :set_article, only: [:show]
     before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
     def index   #一覧表示に使うメソッド
@@ -10,11 +10,11 @@ class ArticlesController < ApplicationController
     end
 
     def new
-      @article = Article.new
+      @article = current_user.articles.build  #Article.newとほぼ同義。ユーザと紐づけた為、表記が変わる
     end
 
     def create
-      @article = Article.new(article_params)
+      @article = current_user.articles.build(article_params)  #Article.newとほぼ同義
       if @article.save
         redirect_to article_path(@article), notice: '保存しました' #redirectのときのflash書き方
       else
@@ -24,9 +24,11 @@ class ArticlesController < ApplicationController
     end
 
     def edit
+      @article = current_user.articles.find(params[:id])  #自分の記事しか編集できないようにする処理
     end
 
     def update
+      @article = current_user.articles.find(params[:id])  #自分の記事しか更新できないようにする処理
       if @article.update(article_params)
         redirect_to article_path(@article), notice: '更新できました'
       else
@@ -36,7 +38,7 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
-      article = Article.find(params[:id])
+      article = current_user.articles.find(params[:id]) #自分の記事しか削除できないようにする処理
       article.destroy!  #「!」例外発生時に処理を止める
       redirect_to root_path, notice: '削除に成功しました'
     end

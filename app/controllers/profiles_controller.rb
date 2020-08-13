@@ -6,5 +6,6 @@ class ProfilesController < ApplicationController
   end
   
   def edit
+    @profile = current_user.build_profile #has_one独特の表現
   end
 end

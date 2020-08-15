@@ -6,11 +6,18 @@ class ProfilesController < ApplicationController
   end
   
   def edit
-    @profile = current_user.build_profile #has_one独特の表現
+  #  if current_user.profile.present?
+  #    @profile = current_user.profile
+  #  else
+  #    @profile = current_user.build_profile #has_one独特の表現
+  #  end
+  # @profile = current_user.profile || current_user.build_profile #上記と同じ条件式を一行で記述
+  @profile = current_user.prepare_profile #さらにuser.rbで定義したメソッドで短縮
   end
   
   def update
-    @profile = current_user.build_profile(profile_params)
+    @profile = current_user.prepare_profile
+    @profile.assign_attributes(profile_params)
     if @profile.save
       redirect_to profile_path, notice: 'プロフィールを更新'
     else

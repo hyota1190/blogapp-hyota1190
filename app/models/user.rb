@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy  #複数形にする、ユーザーが削除されたら、articleも削除される
   has_one :profile, dependent: :destroy #1対1のときのActice Record紐付け
   
-  delegate :birthday, :gender, to: :profile, allow_nil: true #下のbirthdayメソッド、genderメソッドと同じ物を定義したことになる。
+  delegate :birthday, :age, :gender, to: :profile, allow_nil: true #下のbirthdayメソッド、genderメソッドと同じ物を定義したことになる。
   
   def has_written?(article)
     self.articles.exists?(id: article.id)

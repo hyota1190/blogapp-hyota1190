@@ -19,4 +19,16 @@
 class Profile < ApplicationRecord
   enum gender: { male: 0, female: 1, other: 2 }
   belongs_to :user
+  
+  def age
+    return '不明' unless birthday.present?
+    years = Time.zone.now.year - birthday.year #現在（年）を取得 - 誕生日（年）を取得
+    days = Time.zone.now.yday - birthday.yday #yday = 1年の始まりからの経過日数を取得
+    
+    if days < 0 #誕生日が来てから年齢をプラスするための条件式
+      "#{years - 1}歳"
+    else
+      "#{years}歳"
+    end
+  end
 end

@@ -31,4 +31,5 @@ class Profile < ApplicationRecord
       "#{years}歳"
     end
   end
+
 end

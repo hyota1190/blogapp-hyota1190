@@ -15,7 +15,7 @@
     %div
       = f.label :gender, '性別'
     %div
-      = f.select :gender, Profile.genders.keys, {}, { class: 'text' } #selectにおいては、全体で見たとき4つ目にクラスを定義しなければならない為、一つ空を作る
+      = f.select :gender, Profile.genders.map { |k, v| [I18n.t("enum.genders.#{k}"),k]}, {}, { class: 'text' } #selectにおいては、全体で見たとき4つ目にクラスを定義しなければならない為、一つ空を作る
     %div
       = f.label :birthday, '生年月日'
     %div

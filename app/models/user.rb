@@ -23,6 +23,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :articles, dependent: :destroy  #複数形にする、ユーザーが削除されたら、articleも削除される
+  has_one :profile, dependent: :destroy #1対1のときのActice Record紐付け
+  
+  delegate :birthday, :age, :gender, to: :profile, allow_nil: true #下のbirthdayメソッド、genderメソッドと同じ物を定義したことになる。
   
   def has_written?(article)
     self.articles.exists?(id: article.id)
@@ -30,7 +33,33 @@ class User < ApplicationRecord
   
   # cohki0305@gmail.com
   def display_name
-    self.email.split('@').first
-    # => ['cohki0305', 'gmail.com']
+  #  if profile && profile.nickname
+  #    profile.nickname
+  #  else 
+  #    self.email.split('@').first # => ['cohki0305', 'gmail.com']
+  #  end
+  
+  profile&.nickname || self.email.split('@').first  #&. = ぼっち演算子（オプショナルチェイニング）：profileがnilじゃないとき、右の式を実行する
+    
+  end
+  
+  #def birthday
+  #  profile&.birthday
+  #end
+  
+  #def gender
+  #  profile&.gender
+  #end
+  
+  def prepare_profile
+    self.profile || self.build_profile
+  end
+  
+  def avatar_image
+    if profile&.avatar&.attached?
+      profile.avatar
+    else
+      'default-avatar.png'
+    end
   end
 end

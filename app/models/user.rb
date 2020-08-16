@@ -31,8 +31,22 @@ class User < ApplicationRecord
   
   # cohki0305@gmail.com
   def display_name
-    self.email.split('@').first
-    # => ['cohki0305', 'gmail.com']
+  #  if profile && profile.nickname
+  #    profile.nickname
+  #  else 
+  #    self.email.split('@').first # => ['cohki0305', 'gmail.com']
+  #  end
+  
+  profile&.nickname || self.email.split('@').first  #&. = ぼっち演算子（オプショナルチェイニング）：profileがnilじゃないとき、右の式を実行する
+    
+  end
+  
+  def birthday
+    profile&.birthday
+  end
+  
+  def gender
+    profile&.gender
   end
   
   def prepare_profile

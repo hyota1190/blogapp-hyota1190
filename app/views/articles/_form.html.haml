@@ -6,6 +6,10 @@
     / new :url: articles_path, method:'post'は省略できる
     / edit :url: articles_path(@article), method:'put'は省略できる
     %div
+      = f.label :eyecatch, 'アイキャッチ'
+    %div
+      = f.file_field :eyecatch
+    %div
       = f.label :title, 'タイトル'
     %div
       = f.text_field :title, class: 'text'

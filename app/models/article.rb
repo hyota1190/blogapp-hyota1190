@@ -23,6 +23,7 @@ class Article < ApplicationRecord
   
   has_many :comments, dependent: :destroy #複数形にする、記事が削除されたら、commentも削除される
   has_many :likes, dependent: :destroy
+  has_one_attached  :eyecatch
   belongs_to :user  #userに紐づける
 
   def display_created_at

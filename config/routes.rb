@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :articles do
     resources :comments, only: [:new, :create]
+    
+    resource :like, only: [:create] #いいねは１ユーザー/１記事につき一つしかないから
   end
   
   resource :profile, only: [:show, :edit, :update] #indexを除外する為（indexは複数を前提としているから(params[:id]みたいな））

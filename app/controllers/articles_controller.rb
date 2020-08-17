@@ -47,7 +47,7 @@ class ArticlesController < ApplicationController
     private
 
     def article_params  #privateにする
-      params.require(:article).permit(:title, :content)
+      params.require(:article).permit(:title, :content, :eyecatch)
       # params{article: { title: "aaa", content:"bbb"}}
     end
 

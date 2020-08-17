@@ -22,6 +22,8 @@ class Article < ApplicationRecord
   #validate 独自ルール
   
   has_many :comments, dependent: :destroy #複数形にする、記事が削除されたら、commentも削除される
+  has_many :likes, dependent: :destroy
+  has_one_attached  :eyecatch
   belongs_to :user  #userに紐づける
 
   def display_created_at
@@ -30,6 +32,10 @@ class Article < ApplicationRecord
   
   def author_name
     user.display_name
+  end
+  
+  def like_count
+    likes.count
   end
 
   private

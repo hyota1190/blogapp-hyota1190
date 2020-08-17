@@ -24,11 +24,17 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy  #複数形にする、ユーザーが削除されたら、articleも削除される
   has_one :profile, dependent: :destroy #1対1のときのActice Record紐付け
+  has_many :likes, dependent: :destroy
+  has_many :favorite_articles, through: :likes, source: :article #likesテーブルを通して、articleテーブルからuserに関わるデータをfavorite_articlesとして取得する
   
   delegate :birthday, :age, :gender, to: :profile, allow_nil: true #下のbirthdayメソッド、genderメソッドと同じ物を定義したことになる。
   
   def has_written?(article)
     self.articles.exists?(id: article.id)
+  end
+  
+  def has_liked?(article)
+    likes.exists?(article_id: article.id) #なぜarticle,likeに関わるメソッドをuser.rbに記載するのか確認する、、メソッドがどこにかかるかである
   end
   
   # cohki0305@gmail.com

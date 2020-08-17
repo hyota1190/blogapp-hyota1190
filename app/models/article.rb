@@ -32,6 +32,10 @@ class Article < ApplicationRecord
   def author_name
     user.display_name
   end
+  
+  def like_count
+    likes.count
+  end
 
   private
   def validate_title_and_content_length

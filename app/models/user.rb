@@ -33,7 +33,7 @@ class User < ApplicationRecord
   end
   
   def has_liked?(article)
-    likes.exists?(id: article.id) #なぜarticle,likeに関わるメソッドをuser.rbに記載するのか確認する
+    likes.exists?(id: article.id) #なぜarticle,likeに関わるメソッドをuser.rbに記載するのか確認する、、メソッドがどこにかかるかである
   end
   
   # cohki0305@gmail.com

@@ -32,6 +32,10 @@ class User < ApplicationRecord
     self.articles.exists?(id: article.id)
   end
   
+  def has_liked?(article)
+    likes.exists?(id: article.id) #なぜarticle,likeに関わるメソッドをuser.rbに記載するのか確認する
+  end
+  
   # cohki0305@gmail.com
   def display_name
   #  if profile && profile.nickname

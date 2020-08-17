@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   end
   
   resource :profile, only: [:show, :edit, :update] #indexを除外する為（indexは複数を前提としているから(params[:id]みたいな））
+  resources :favorites, only: [:index]
 end
